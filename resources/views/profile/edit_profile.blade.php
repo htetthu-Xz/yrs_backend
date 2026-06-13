@@ -17,21 +17,18 @@
             @csrf
         </form>
 
-        <form method="post" action="{{ route('profile.update') }}" class="tw-mt-6 tw-space-y-6">
+        <form method="post" action="{{ route('profile.update') }}" id="edit-profile-form" class="tw-mt-6 tw-space-y-6">
             @csrf
             @method('patch')
 
             <div>
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" name="name" type="text" class="tw-mt-1 tw-block tw-w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-                <x-input-error class="tw-mt-2" :messages="$errors->get('name')" />
-            </div>
+                <x-text-input id="name" name="name" type="text" class="tw-mt-1 tw-block tw-w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />            
+                </div>
 
             <div>
                 <x-input-label for="email" :value="__('Email')" />
                 <x-text-input id="email" name="email" type="email" class="tw-mt-1 tw-block tw-w-full" :value="old('email', $user->email)" required autocomplete="username" />
-                <x-input-error class="tw-mt-2" :messages="$errors->get('email')" />
-
                 @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                     <div>
                         <p class="tw-text-sm tw-mt-2 tw-text-gray-800 ">
@@ -58,5 +55,9 @@
         </form>
     </x-card>
 @endsection
+
+@push('scripts')
+    {!! JsValidator::formRequest(\App\Http\Requests\ProfileUpdateRequest::class, '#edit-profile-form') !!}
+@endpush
 
 

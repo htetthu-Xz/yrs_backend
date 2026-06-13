@@ -29,9 +29,6 @@
         <!-- JQVMap -->
         <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
         
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-        
         <!-- overlayScrollbars -->
         <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         
@@ -40,6 +37,12 @@
         
         <!-- summernote -->
         <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+
+        <!-- summernote -->
+        <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
         <!-- Scripts --> 
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -65,6 +68,7 @@
               <!-- Main content -->
               <section class="content">
                 <div class="container-fluid">
+                  <x-flash_message></x-flash_message>
                   @yield('content')
                 </div><!-- /.container-fluid -->
               </section>
@@ -115,11 +119,32 @@
     <!-- overlayScrollbars -->
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
+    <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+
+    <!-- Toastr -->
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 
-    <!-- Laravel Javascript Validation -->
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script>
+      $(document).ready(function() {
+        @if (session('success'))
+          toastr.success("{{ session('success') }}", {
+            progressBar: true,
+            timeOut: 3000,
+          });
+        @endif
+
+        @if (session('error'))
+          toastr.error("{{ session('error') }}", {
+            progressBar: true,
+            timeOut: 3000,
+          });
+        @endif
+      });
+    </script>
 
     @stack('scripts')
 </html>

@@ -19,14 +19,12 @@
 
             <div>
                 <x-input-label for="update_password_current_password" :value="__('Current Password')" />
-                <x-text-input id="update_password_current_password" name="current_password" type="password" class="tw-mt-1 tw-block tw-w-full" autocomplete="current-password" />
-                <x-input-error :messages="$errors->updatePassword->get('current_password')" class="tw-mt-2" />
+                <x-text-input id="update_password_current_password" name="current_password" type="password" class="tw-mt-1 tw-block tw-w-full" autocomplete="current-password" />            
             </div>
 
             <div>
                 <x-input-label for="update_password_password" :value="__('New Password')" />
                 <x-text-input id="update_password_password" name="password" type="password" class="tw-mt-1 tw-block tw-w-full" autocomplete="new-password" />
-                <x-input-error :messages="$errors->updatePassword->get('password')" class="tw-mt-2" />
             </div>
 
             <div>
